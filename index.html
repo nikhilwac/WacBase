@@ -1,16 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/style.css">
     <title>Dynamic Exam App - Add Question</title>
 </head>
+
 <body>
     <h1>Create Document</h1>
     <form method="POST" action="/add">
+        <label for="document-name">Document Name:</label>
+        <input type="text" id="document-name" name="documentName" required>
         <!-- Additional message and answer fields -->
         <div id="additional-fields"></div>
+
 
         <!-- Separate buttons for adding messages and answers -->
         <button type="button" onclick="addMessage()">Add Message</button>
@@ -20,6 +25,9 @@
     </form>
 
     <script>
+        // Create an array to store messages and their associated answers
+        const messages = [];
+
         function addMessage() {
             const additionalFields = document.getElementById('additional-fields');
             const questionAnswer = document.createElement('div');
@@ -27,11 +35,15 @@
 
             // Add Message input field
             const messageField = document.createElement('div');
+            const messageIndex = messages.length; // Index for this message
             messageField.innerHTML = `
                 <label for="additional-message">Message:</label>
                 <input type="text" class="additional-message" name="additionalMessages[]" required>
             `;
             questionAnswer.appendChild(messageField);
+
+            // Add an array to store answers for this message
+            messages.push([]);
             additionalFields.appendChild(questionAnswer);
         }
 
@@ -42,15 +54,19 @@
 
             // Add Answer input field
             const answerField = document.createElement('div');
+            const messageIndex = messages.length - 1; // Index for the last added message
+            const answerIndex = messages[messageIndex].length; // Index for this answer
             answerField.innerHTML = `
-                <label for="additional-answer">Answer:</label>
-                <input type="text" class="additional-answer" name="additionalAnswers[]" required>
+                <label for="additional-answer">Answer ${answerIndex + 1}:</label>
+                <input type="text" class="additional-answer" name="additionalAnswers[${messageIndex}][]" required>
             `;
 
-
+            // Store the answer in the corresponding message's array
+            messages[messageIndex].push(answerField);
             questionAnswer.appendChild(answerField);
             additionalFields.appendChild(questionAnswer);
         }
     </script>
 </body>
+
 </html>
