@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+    <title>Dynamic Exam App - Add Question</title>
+</head>
+<body>
+    <h1>Create Document</h1>
+    <form method="POST" action="/add">
+        <!-- Additional message and answer fields -->
+        <div id="additional-fields"></div>
+
+        <!-- Separate buttons for adding messages and answers -->
+        <button type="button" onclick="addMessage()">Add Message</button>
+        <button type="button" onclick="addAnswer()">Add Answer</button>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        function addMessage() {
+            const additionalFields = document.getElementById('additional-fields');
+            const questionAnswer = document.createElement('div');
+            questionAnswer.classList.add('question-answer');
+
+            // Add Message input field
+            const messageField = document.createElement('div');
+            messageField.innerHTML = `
+                <label for="additional-message">Message:</label>
+                <input type="text" class="additional-message" name="additionalMessages[]" required>
+            `;
+            questionAnswer.appendChild(messageField);
+            additionalFields.appendChild(questionAnswer);
+        }
+
+        function addAnswer() {
+            const additionalFields = document.getElementById('additional-fields');
+            const questionAnswer = document.createElement('div');
+            questionAnswer.classList.add('question-answer');
+
+            // Add Answer input field
+            const answerField = document.createElement('div');
+            answerField.innerHTML = `
+                <label for="additional-answer">Answer:</label>
+                <input type="text" class="additional-answer" name="additionalAnswers[]" required>
+            `;
+
+
+            questionAnswer.appendChild(answerField);
+            additionalFields.appendChild(questionAnswer);
+        }
+    </script>
+</body>
+</html>
